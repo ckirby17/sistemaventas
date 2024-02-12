@@ -101,7 +101,22 @@ build/
 
 /back/SistemaVentaAPI/.vs
 /back/SistemaVentaAPI/SistemaVenta.API/obj
-/back/SistemaVentaAPI/SistemaVenta.API/[Bb]in/
+/back/SistemaVentaAPI/SistemaVenta.API/bin
 
 /back/SistemaVentaAPI/SistemaVenta.Services/obj
 /back/SistemaVentaAPI/SistemaVenta.Services/bin
+
+/back/SistemaVentaAPI/SistemaVenta.DB/obj
+/back/SistemaVentaAPI/SistemaVenta.DB/bin
+
+/back/SistemaVentaAPI/SistemaVenta.DI/obj
+/back/SistemaVentaAPI/SistemaVenta.DI/bin
+
+/back/SistemaVentaAPI/SistemaVenta.DTO/obj
+/back/SistemaVentaAPI/SistemaVenta.DTO/bin
+
+/back/SistemaVentaAPI/SistemaVenta.Mapping/obj
+/back/SistemaVentaAPI/SistemaVenta.Mapping/bin
+
+/back/SistemaVentaAPI/SistemaVenta.Repositories/obj
+/back/SistemaVentaAPI/SistemaVenta.Repositories/bin

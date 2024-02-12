@@ -95,5 +95,13 @@ build/
 
 *.gitkeep
 
-/bin
-/obj
+
+/front/AppSistemaVenta/node_modules
+/front/AppSistemaVenta/.angular
+
+/back/SistemaVentaAPI/.vs
+/back/SistemaVentaAPI/SistemaVenta.API/obj
+/back/SistemaVentaAPI/SistemaVenta.API/[Bb]in/
+
+/back/SistemaVentaAPI/SistemaVenta.Services/obj
+/back/SistemaVentaAPI/SistemaVenta.Services/bin

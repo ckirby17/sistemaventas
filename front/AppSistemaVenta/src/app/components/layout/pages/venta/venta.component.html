@@ -1,0 +1,161 @@
+<h1 style="margin: 20px 0 0 40px;">Nueva Venta</h1>
+
+<mat-card style="margin: 20px 40px 40px 40px;">
+
+  <mat-card-content class="card-content">
+
+    <form [formGroup]="formDetalleVenta">
+
+      <mat-grid-list cols="3" rowHeight="70px">
+
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Producto</mat-label>
+            <input type="text"
+                   matInput
+                   formControlName="producto"
+                   required
+                   placeholder="Buscar..."
+                   [matAutocomplete]="autoProducto">
+              <mat-autocomplete autoActiveFirstOption #autoProducto="matAutocomplete"
+              (optionSelected)="productoSeleccionadoCombo($event)"
+              [displayWith]="mostrarProducto">
+                <mat-optgroup *ngFor="let categoria of listaCategoriaObservable | async" [label]="categoria.nombre">
+                  <mat-option *ngFor="let producto of categoria.productos" [value]="producto">
+                    {{producto.nombre}}
+                  </mat-option>
+              </mat-optgroup>
+            </mat-autocomplete>
+            <button mat-icon-button matSuffix (click)="formDetalleVenta.get('producto')?.patchValue('')">
+              <mat-icon color="warn">close</mat-icon>
+            </button>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Cantidad</mat-label>
+            <input type="number" matInput formControlName="cantidad" required="true" autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <span style="flex: 1 1 auto;"></span>
+          <button mat-raised-button color="primary" style="width: 40%;" [disabled]="formDetalleVenta.invalid" (click)="onAgregarDetalleVenta()">
+            <mat-icon matSuffix>add</mat-icon> Agregar
+          </button>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Pago</mat-label>
+            <mat-select formControlName="tipoPago">
+              <mat-option value="">Seleccione un pago</mat-option>
+              <mat-option *ngFor="let pago of listaPagos" value="{{pago.id}}">{{pago.nombre}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>credit_card</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Documento</mat-label>
+            <mat-select formControlName="tipoDocumento">
+              <mat-option value="">Seleccione un documento</mat-option>
+              <mat-option *ngFor="let documento of listaDocumentos" value="{{documento.id}}">{{documento.nombre}} --- {{documento.sigla}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>description</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <span style="flex: 1 1 auto;"></span>
+          <button mat-button>
+            <mat-icon matSuffix>attach_money</mat-icon>
+            Neto: {{netoValor}}
+          </button>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+
+        <mat-grid-tile>
+          <span style="flex: 1 1 auto;"></span>
+          <button mat-button>
+            <mat-icon matSuffix>attach_money</mat-icon>
+            Iva (19%): {{ivaValor}}
+          </button>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2"></mat-grid-tile>
+
+        <mat-grid-tile>
+          <span style="flex: 1 1 auto;"></span>
+          <button mat-raised-button color="warn">
+            <mat-icon matSuffix>attach_money</mat-icon>
+            Total: {{totalValor}}
+          </button>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+
+      <div class="mat-elevation-z8" *ngIf="listaDetalleVenta.length > 0">
+
+        <table mat-table [dataSource]="dataTablaSource">
+
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+            <td mat-cell *matCellDef="let row"> {{row.descripcion}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cantidad">
+            <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+            <td mat-cell *matCellDef="let row"> {{row.cantidad}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="precio">
+            <th mat-header-cell *matHeaderCellDef> Precio </th>
+            <td mat-cell *matCellDef="let row"> {{row.precio}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef> Total </th>
+            <td mat-cell *matCellDef="let row"> {{row.total}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef style="text-align: center;">Acciones</th>
+            <td mat-cell *matCellDef="let element, let i = index" style="text-align: center;">
+                <button mat-icon-button color="warn" (click)="onEliminarDetalleVenta(element, i)" matTooltip="Eliminar">
+                  <mat-icon matSuffix>delete</mat-icon>
+                </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnasTabla;"></tr>
+        </table>
+
+      </div>
+
+      <mat-grid-list cols="3" rowHeight="40px" style="margin-top: 15px;">
+
+        <mat-grid-tile [colspan]="2">
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <span style="flex: 1 1 auto;"></span>
+          <button mat-raised-button color="primary" style="width: 40%;" [disabled]="listaDetalleVenta.length < 1 || botonRegistrarBloqueado || mostrarLoading" (click)="registrarVenta()">
+            <mat-icon matSuffix>add_shopping_cart</mat-icon> Registrar
+          </button>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+    </form>
+
+  </mat-card-content>
+
+  <mat-card-footer>
+    <mat-progress-bar *ngIf="mostrarLoading" mode="indeterminate" [value]="" [bufferValue]="" color="primary"></mat-progress-bar>
+  </mat-card-footer>
+
+</mat-card>

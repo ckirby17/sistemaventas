@@ -1,0 +1,72 @@
+<h1 style="margin: 20px 0 0 40px;">Historial de Ventas</h1>
+
+<mat-card style="margin: 20px 40px 40px 40px;">
+
+  <mat-card-content class="card-content">
+
+    <form [formGroup]="formBusqueda" (ngSubmit)="buscarVentas()">
+
+      <mat-grid-list cols="4" rowHeight="70px">
+
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Buscar Por</mat-label>
+            <mat-select formControlName="busquedaPor" (valueChange)="onCambioFiltroBusqueda($event)">
+              <mat-option *ngFor="let item of filtroBusqueda" value="{{item.valor}}">{{item.descripcion}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile *ngIf="formBusqueda.get('busquedaPor')?.value === 'PorNumero'">
+          <mat-form-field appearance="fill">
+            <mat-label>N° Documento</mat-label>
+            <input type="number" matInput formControlName="numeroDocumento" autocomplete="off">
+            <mat-icon matSuffix>pin</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile *ngIf="formBusqueda.get('busquedaPor')?.value === 'PorFechas'">
+          <mat-form-field appearance="fill">
+            <mat-label>Rango de fechas</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate formControlName="fechaInicio" placeholder="Fecha inicio">
+              <input matEndDate formControlName="fechaFin" placeholder="Fecha fin">
+            </mat-date-range-input>
+            <mat-hint>DD-MM-YYYY - DD-MM-YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+
+            <mat-error *ngIf="formBusqueda.get('fechaInicio')?.hasError('matStartDateInvalid')">Fecha inicio inválida</mat-error>
+          <mat-error *ngIf="formBusqueda.get('fechaFin')?.hasError('matEndDateInvalid')">Fecha fin inválida</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2">
+          <span style="flex: 1 1 auto;"></span>
+          <button type="submit" mat-raised-button color="primary" [disabled]="formBusqueda.invalid">
+            <mat-icon matSuffix>search</mat-icon> Buscar
+          </button>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+
+      <mat-divider style="margin-top: 15px;"></mat-divider>
+
+      <div *ngIf="listaVentas.length > 0">
+
+        <app-venta-tabla [dataOrigen]="listaVentas">
+
+        </app-venta-tabla>
+
+      </div>
+
+    </form>
+
+  </mat-card-content>
+
+  <mat-card-footer>
+    <mat-progress-bar *ngIf="mostrarLoading" mode="indeterminate" [value]="" [bufferValue]="" color="primary"></mat-progress-bar>
+  </mat-card-footer>
+
+</mat-card>

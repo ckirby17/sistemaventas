@@ -1,0 +1,48 @@
+<h2 mat-dialog-title style="background-color: #3f51b5; color: #ffffff;">{{tituloAccion}} Pago</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="formPago">
+
+    <mat-grid-list cols="1" rowHeight="80px">
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="nombre" required="true">
+          <mat-icon matSuffix>paid</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Sigla</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="sigla" required="true" [maxlength]="3">
+          <mat-icon matSuffix>payments</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile style="width: 100%;">
+          <mat-list dense>
+              <mat-list-item>
+                <mat-slide-toggle formControlName="esActivo" color="primary" (change)="onChangeSlideToggle($event)">
+                  <span style="font-size: 14px; font-family: Roboto, sans-serif; color: #000000DE; font-weight: 595;">{{nombreEsActivado}}</span>
+                </mat-slide-toggle>
+              </mat-list-item>
+          </mat-list>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button mat-raised-button mat-dialog-close color="warn">
+    Cancelar
+    <mat-icon matSuffix>cancel</mat-icon>
+  </button>
+  <button mat-raised-button color="primary" (click)="onSalvar()" [disabled]="formPago.invalid">
+    {{botonAccion}}
+    <mat-icon matSuffix>save</mat-icon>
+  </button>
+</mat-dialog-actions>

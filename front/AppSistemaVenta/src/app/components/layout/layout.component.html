@@ -1,0 +1,79 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <h1>Sistema Ventas</h1>
+        <button mat-icon-button (click)="menuDrawer.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span style="flex: 1 1 auto;"></span>
+        <button mat-button>
+          <mat-icon matSuffix>person</mat-icon>
+          {{sessionUsuario.nombre + ' ' + sessionUsuario.apellido}}
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-drawer-container autosize>
+  <mat-drawer #menuDrawer opened="true" mode="side" position="start">
+    <mat-list>
+
+      <mat-list-item *ngFor="let menu of listaMenus">
+
+        <ng-container *ngIf="menu.url !== '#'; else elseMenu">
+          <button mat-button [routerLink]="menu.url">
+            <mat-icon>{{menu.icono}}</mat-icon>
+            {{menu.nombre}}
+          </button>
+        </ng-container>
+        <ng-template #elseMenu>
+          <button mat-button [matMenuTriggerFor]="submenu01">
+            {{menu.nombre}}
+            <mat-icon matSuffix>{{menu.icono}}</mat-icon>
+          </button>
+
+          <mat-menu #submenu01="matMenu">
+            <div *ngFor="let menu2 of obtenerMenusFiltroPorNivelCeroSinUrl(menu.subMenus)">
+              <button mat-menu-item [matMenuTriggerFor]="submenu02">
+                <mat-icon>{{menu2.icono}}</mat-icon>
+                <span>{{menu2.nombre}}</span>
+              </button>
+
+              <mat-menu #submenu02="matMenu">
+                <div *ngFor="let menu2 of obtenerMenusFiltroPorNivelUnoConUrl(menu.subMenus)">
+                  <button mat-menu-item [routerLink]="menu2.url">
+                    <mat-icon matSuffix>{{menu2.icono}}</mat-icon>
+                    <span>{{menu2.nombre}}</span>
+                  </button>
+                </div>
+              </mat-menu>
+            </div>
+
+            <div *ngFor="let menu2 of obtenerMenusFiltroPorNivelCeroConUrl(menu.subMenus)">
+                <button mat-menu-item  [routerLink]="menu2.url">
+                  <mat-icon>{{menu2.icono}}</mat-icon>
+                  <span>{{menu2.nombre}}</span>
+                </button>
+            </div>
+          </mat-menu>
+
+        </ng-template>
+
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <button mat-button (click)="onLogout()">
+          <mat-icon>logout</mat-icon>
+          Salir
+        </button>
+      </mat-list-item>
+
+    </mat-list>
+
+  </mat-drawer>
+  <mat-drawer-content>
+    <div style="height: 90vh;">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

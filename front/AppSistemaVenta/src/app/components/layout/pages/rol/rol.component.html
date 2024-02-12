@@ -1,0 +1,73 @@
+<h1 style="margin: 20px 0 0 40px;">Mantenedor de Roles</h1>
+
+<mat-card style="margin: 20px 40px 40px 40px;">
+
+  <mat-card-title style="margin: 20px 20px;">
+    <button mat-raised-button color="primary" (click)="onCrearRol()" [disabled]="mostrarLoading">
+      <mat-icon matSuffix>add</mat-icon>Nuevo Rol
+    </button>
+  </mat-card-title>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content class="card-content" style="margin: 20px 0px;">
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="aplicarFiltroTabla($event)" #input autocomplete="off">
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+
+      <table mat-table [dataSource]="dataTablaSource" matSort>
+
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+          <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaCreacion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Creación </th>
+          <td mat-cell *matCellDef="let row"> {{row.fechaCreacion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaActualizacion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Actualización </th>
+          <td mat-cell *matCellDef="let row"> {{row.fechaActualizacion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;">Acciones</th>
+          <td mat-cell *matCellDef="let element" style="text-align: center;">
+              <button mat-button color="primary" (click)="onEditarRol(element)" matTooltip="Editar">
+                <mat-icon matSuffix>edit</mat-icon>
+              </button>
+              <button mat-button color="warn" (click)="onEliminarRol(element)" matTooltip="Eliminar">
+                <mat-icon matSuffix>delete</mat-icon>
+              </button>
+          </td>
+      </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnasTabla;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">Datos no coinciden con el filtro ingresado de ... "{{input.value}}"</td>
+        </tr>
+
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"
+              showFirstLastButtons
+              aria-label="Select page of periodic elements">
+      </mat-paginator>
+
+    </div>
+
+  </mat-card-content>
+
+  <mat-card-footer>
+    <mat-progress-bar *ngIf="mostrarLoading" mode="indeterminate" [value]="" [bufferValue]="" color="primary"></mat-progress-bar>
+  </mat-card-footer>
+
+</mat-card>

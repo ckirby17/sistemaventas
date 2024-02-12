@@ -1,0 +1,54 @@
+<h2 mat-dialog-title style="background-color: #3f51b5; color: #ffffff;">{{tituloAccion}} Menú</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="formMenu">
+
+    <mat-grid-list cols="1" rowHeight="80px">
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="nombre" required="true">
+          <mat-icon matSuffix>playlist_add</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Icono</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="icono" required="true">
+          <mat-icon matSuffix>playlist_add_check</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Url</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="url" required="true">
+          <mat-icon matSuffix>note_add</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Orden</mat-label>
+          <input type="number" matInput autocomplete="off" formControlName="orden" required="true">
+          <mat-icon matSuffix>orders</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button mat-raised-button mat-dialog-close color="warn">
+    Cancelar
+    <mat-icon matSuffix>cancel</mat-icon>
+  </button>
+  <button mat-raised-button color="primary" (click)="onSalvar()" [disabled]="formMenu.invalid">
+    {{botonAccion}}
+    <mat-icon matSuffix>save</mat-icon>
+  </button>
+</mat-dialog-actions>

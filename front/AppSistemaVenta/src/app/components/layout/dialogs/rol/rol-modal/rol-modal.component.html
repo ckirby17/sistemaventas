@@ -1,0 +1,32 @@
+<h2 mat-dialog-title style="background-color: #3f51b5; color: #ffffff;">{{tituloAccion}} Rol</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="formRol">
+
+    <mat-grid-list cols="1" rowHeight="80px">
+
+      <mat-grid-tile>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="nombre" required="true">
+          <mat-icon matSuffix>folder_supervised</mat-icon>
+        </mat-form-field>
+
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button mat-raised-button mat-dialog-close color="warn">
+    Cancelar
+    <mat-icon matSuffix>cancel</mat-icon>
+  </button>
+  <button mat-raised-button color="primary" (click)="onSalvar()" [disabled]="formRol.invalid">
+    {{botonAccion}}
+    <mat-icon matSuffix>save</mat-icon>
+  </button>
+</mat-dialog-actions>

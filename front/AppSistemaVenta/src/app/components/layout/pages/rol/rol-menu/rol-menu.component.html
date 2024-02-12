@@ -1,0 +1,93 @@
+<h1 style="margin: 20px 0 0 40px;">Rol Menus</h1>
+
+<mat-card style="margin: 20px 40px 40px 40px;">
+
+  <mat-card-content class="card-content">
+
+    <form [formGroup]="formRolMenus">
+
+      <mat-grid-list cols="3" rowHeight="80px">
+
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="rol" [(value)]="rolSeleccionado" (valueChange)="onCambioRol()">
+              <mat-option value="">Seleccione un rol</mat-option>
+              <mat-option *ngFor="let rol of listaRoles" [value]="rol">{{rol.nombre}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>folder_supervised</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <span style="flex: 1 1 auto;"></span>
+          <button mat-raised-button color="primary" style="width: 40%;" [disabled]="formRolMenus.invalid || mostrarLoading" (click)="onGuardarRolMenu()">
+            <mat-icon matSuffix>save</mat-icon> Guardar
+          </button>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+
+      <div class="mat-elevation-z8" *ngIf="this.listaMenusTabla.length > 0">
+
+        <table mat-table [dataSource]="dataTablaSource">
+
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="icono">
+            <th mat-header-cell *matHeaderCellDef> Icono </th>
+            <td mat-cell *matCellDef="let row"> {{row.icono}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="url">
+            <th mat-header-cell *matHeaderCellDef> Url </th>
+            <td mat-cell *matCellDef="let row"> {{row.url}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fechaCreacion">
+            <th mat-header-cell *matHeaderCellDef> Fecha Creación </th>
+            <td mat-cell *matCellDef="let row"> {{row.fechaCreacion}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fechaActualizacion">
+            <th mat-header-cell *matHeaderCellDef> Fecha Actualización </th>
+            <td mat-cell *matCellDef="let row"> {{row.fechaActualizacion}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox color="primary"
+                (change)="onCambioCheckBoxCabecera($event)">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox color="primary"
+                (click)="$event.stopPropagation()"
+                (change)="onCambioCheckBox(row)"
+                [checked]="row.seleccionado">
+              </mat-checkbox>
+            </td>
+        </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnasTabla;"></tr>
+
+        </table>
+
+      </div>
+
+    </form>
+
+  </mat-card-content>
+
+  <mat-card-footer>
+    <mat-progress-bar *ngIf="mostrarLoading" mode="indeterminate" [value]="" [bufferValue]="" color="primary"></mat-progress-bar>
+  </mat-card-footer>
+
+</mat-card>

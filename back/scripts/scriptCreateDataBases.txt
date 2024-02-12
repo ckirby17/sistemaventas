@@ -1,0 +1,106 @@
+create table Rol(
+	Id int primary key identity(1,1),
+	Nombre varchar(50) not null,
+	FechaCreacion datetime not null default getdate(),
+	FechaActualizacion datetime null 
+)
+
+create table Menu(
+	Id int primary key identity(1,1),
+	Nombre varchar(50) not null,
+	Icono varchar(50) not null,
+	[Url] varchar(50) not null,
+	FechaCreacion datetime not null default getdate(),
+	FechaActualizacion datetime null 
+)
+
+create table MenuRol(
+	Id int primary key identity(1,1),
+	MenuId int not null references Menu(Id),
+	RolId int not null references Rol(Id),
+	FechaCreacion datetime not null default getdate(),
+	FechaActualizacion datetime null 
+)
+
+create table Usuario(
+	Id int primary key identity(1,1),
+	Nombre varchar(50) not null,
+	Apellido varchar(50) not null,
+	Correo varchar(50) not null,
+	Clave varchar(100) not null,
+	EsActivo bit not null default 1,
+	RolId int not null references Rol(Id),
+	FechaCreacion datetime not null default getdate(),
+	FechaActualizacion datetime null 
+)
+
+create table Categoria(
+	Id int primary key identity(1,1),
+	Nombre varchar(50) not null,
+	EsActivo bit not null default 1,
+	FechaCreacion datetime not null default getdate(),
+	FechaActualizacion datetime null 
+)
+
+create table Producto(
+	Id int primary key identity(1,1),
+	Nombre varchar(100) not null,
+	CategoriaId int references Categoria(Id),
+	PrecioCosto int not null,
+	PrecioVenta int not null,
+	StockMinimo int not null,
+	StockActual int not null,
+	EsActivo bit not null default 1,
+	FechaCreacion datetime not null default getdate(),
+	FechaActualizacion datetime null 
+)
+--BOF BOE FAC NCR
+create table TipoDocumento(
+	Id int primary key identity(1,1),
+	Nombre varchar(30) not null,
+	Sigla varchar(3) not null,
+	EsActivo bit not null default 1,
+	FechaCreacion datetime not null default getdate(),
+	FechaActualizacion datetime null 
+)
+
+create table NumeroDocumento(
+	Id int primary key identity(1,1),
+	UltimoNumero bigint not null,
+	TipoDocumentoId int references TipoDocumento(Id),
+	FechaCreacion datetime not null default getdate(),
+	FechaActualizacion datetime null
+)
+--EFE, CRE, DEB
+create table TipoPago(
+	Id int primary key identity(1,1),
+	Nombre varchar(30) not null,
+	Sigla varchar(3) not null,
+	EsActivo bit not null default 1,
+	FechaCreacion datetime not null default getdate(),
+	FechaActualizacion datetime null 
+)
+
+create table Venta(
+	Id bigint primary key identity(1,1),
+	Neto int not null,
+	Iva int not null,
+	Total int not null,
+	NumeroDocumento bigint not null default 0,
+	TipoPagoId int references TipoPago(Id),
+	TipoDocumentoId int references TipoDocumento(Id),
+	FechaCreacion datetime not null default getdate(),
+	FechaActualizacion datetime null 
+)
+
+create table VentaDetalle(
+	Id bigint primary key identity(1,1),
+	VentaId bigint references Venta(Id),
+	ProductoId int references Producto(Id),
+	Cantidad int not null,
+	Precio int not null,
+	Total int not null,
+	Descripcion varchar(30) not null,
+	FechaCreacion datetime not null default getdate(),
+	FechaActualizacion datetime null 
+)

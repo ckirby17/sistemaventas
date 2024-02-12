@@ -1,0 +1,26 @@
+-- =============================================
+-- Author:		<Author: Christian Kirby>
+-- Create date: <Create Date: 25-01-2024>
+-- Description:	<Description: Tigger inserción para el NumeroDocumento>
+-- =============================================
+CREATE TRIGGER InsertNumeroDocumentoVenta
+ON Venta
+AFTER INSERT
+AS
+BEGIN
+	DECLARE @VentaId BIGINT;
+	DECLARE @TipoDocumentoId INT;
+	DECLARE @NumeroDocumentoId INT;
+	DECLARE @UltimoNumero BIGINT;
+	DECLARE @NuevoUltimoNumero BIGINT;
+
+    SELECT @TipoDocumentoId = TipoDocumentoId, @VentaId = Id FROM INSERTED;
+
+	SELECT TOP 1 @NumeroDocumentoId = Id, @UltimoNumero = UltimoNumero FROM NumeroDocumento where TipoDocumentoId = @TipoDocumentoId;
+
+	SET @NuevoUltimoNumero = @UltimoNumero + 1;
+
+	UPDATE Venta SET NumeroDocumento = @NuevoUltimoNumero WHERE Id = @VentaId;
+
+	UPDATE NumeroDocumento SET UltimoNumero = @NuevoUltimoNumero WHERE Id = @NumeroDocumentoId;
+END;

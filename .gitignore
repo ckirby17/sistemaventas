@@ -94,3 +94,6 @@ build/
 !**/src/test/**/build/
 
 *.gitkeep
+
+/bin
+/obj

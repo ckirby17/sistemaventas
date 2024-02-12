@@ -1,0 +1,17 @@
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\bin\Debug\net8.0\SistemaVenta.Mapping.deps.json
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\bin\Debug\net8.0\SistemaVenta.Mapping.dll
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\bin\Debug\net8.0\SistemaVenta.Mapping.pdb
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\bin\Debug\net8.0\SistemaVenta.DB.dll
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\bin\Debug\net8.0\SistemaVenta.DTO.dll
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\bin\Debug\net8.0\SistemaVenta.DB.pdb
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\bin\Debug\net8.0\SistemaVenta.DTO.pdb
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\obj\Debug\net8.0\SistemaVenta.Mapping.csproj.AssemblyReference.cache
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\obj\Debug\net8.0\SistemaVenta.Mapping.GeneratedMSBuildEditorConfig.editorconfig
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\obj\Debug\net8.0\SistemaVenta.Mapping.AssemblyInfoInputs.cache
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\obj\Debug\net8.0\SistemaVenta.Mapping.AssemblyInfo.cs
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\obj\Debug\net8.0\SistemaVenta.Mapping.csproj.CoreCompileInputs.cache
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\obj\Debug\net8.0\SistemaVenta.Mapping.csproj.CopyComplete
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\obj\Debug\net8.0\SistemaVenta.Mapping.dll
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\obj\Debug\net8.0\refint\SistemaVenta.Mapping.dll
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\obj\Debug\net8.0\SistemaVenta.Mapping.pdb
+D:\Proyectos\SistemaVentas\back\SistemaVentaAPI\SistemaVenta.Mapping\obj\Debug\net8.0\ref\SistemaVenta.Mapping.dll
